@@ -1,5 +1,3 @@
-let globalCounter = 0; // Achtung: Diese Variable ist nicht dauerhaft stabil
-
 const links = [
   "https://www.soscisurvey.de/kgnpp/?act=9k0hCHSguLAxToC88GXatOtB",
   "https://www.soscisurvey.de/egp/?act=9mS886iKnpjWZJgzNDrwqqyo",
@@ -10,13 +8,20 @@ const links = [
 ];
 
 exports.handler = async (event, context) => {
-  const index = globalCounter % links.length; // Bestimme den aktuellen Link
-  globalCounter++; // Erhöhe den Zähler (Achtung: Nicht dauerhaft stabil!)
+  const netlify = require("@netlify/functions");
+  const db = netlify.kv; // Netlify Key-Value Store für globalen Zähler
+
+  // Hole aktuellen globalen Zählerwert
+  let count = await db.get("click_count");
+  count = count ? parseInt(count) : 0;
+
+  const linkIndex = count % links.length; // Bestimme Link
+  const redirectUrl = links[linkIndex];
+
+  await db.set("click_count", count + 1); // Erhöhe Zähler global
 
   return {
     statusCode: 302,
-    headers: {
-      Location: links[index]
-    }
+    headers: { Location: redirectUrl }
   };
 };
