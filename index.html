@@ -3,35 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weiterleitung</title>
+    <title>Global Redirect</title>
     <script>
-        // Die Liste der Links, die rotierend genutzt werden sollen
-        const links = [
-            "https://www.soscisurvey.de/kgnpp/?act=9k0hCHSguLAxToC88GXatOtB",
-            "https://www.soscisurvey.de/egp/?act=9mS886iKnpjWZJgzNDrwqqyo",
-            "https://www.soscisurvey.de/kgpp/?act=Nbel0UaWwEp2dOKLN36o1FCx",
-            "https://www.soscisurvey.de/pegp/?act=VJ6pSkgm8bY9G0PlGJ1bzBIU",
-            "https://www.soscisurvey.de/pkgnpp/?act=C1gCbTZD7QNKEPcy975mwjWx",
-            "https://www.soscisurvey.de/pkgpp/?act=sVKat7EhjfCIuZBChYWj8y6m"
-        ];
-
-        // Speichert die Klick-Anzahl in localStorage
-        const clickCount = localStorage.getItem("redirectCount") || 0;
-
-        // Wählt den richtigen Link basierend auf der Klick-Anzahl
-        const nextLink = links[clickCount % links.length];
-
-        // Erhöht den Zähler für den nächsten Besucher
-        localStorage.setItem("redirectCount", parseInt(clickCount) + 1);
-
-        // Weiterleitung zum gewählten Link
-        window.location.href = nextLink;
+        window.location.href = "/.netlify/functions/counter";
     </script>
 </head>
 <body>
-    <p>Falls du nicht weitergeleitet wirst, klicke <a id="manualLink" href="#">hier</a>.</p>
-    <script>
-        document.getElementById("manualLink").href = nextLink;
-    </script>
+    <p>Falls du nicht weitergeleitet wirst, <a href="/.netlify/functions/counter">klicke hier</a>.</p>
 </body>
 </html>
