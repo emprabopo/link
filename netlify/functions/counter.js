@@ -3,12 +3,12 @@ const file = "/tmp/counter.json";
 
 // Die Umleitungsliste
 const links = [
-    "https://www.soscisurvey.de/kgnpp/?act=DATRjrTnCEjbWRj4FtAMwbnd",
-    "https://www.soscisurvey.de/egp/?act=WsCJIBUOAoGkln4ORi1en8cl",
-    "https://www.soscisurvey.de/kgpp/?act=j2rxidAm2264Pe9NfyezGT57",
-    "https://www.soscisurvey.de/pegp/?act=963JdhlaLBxSMsXlbxq5XBke",
-    "https://www.soscisurvey.de/pkgnpp/?act=2SjuQTVNfDyi6mGkvyAytAYC",
-    "https://www.soscisurvey.de/pkgpp/?act=dVkbCNRGJDeQ88sGxgv8EaEf"
+    "https://www.soscisurvey.de/kgnpp/?act=dpgrNWD2g16XkeNwX7yj87bc",
+    "https://www.soscisurvey.de/egp/?act=2shsmKsWb2ShTEIe6ctwbyAo",
+    "https://www.soscisurvey.de/kgpp/?act=z07ALcekaIWK4W45Aa2HnjbD",
+    "https://www.soscisurvey.de/pegp/?act=OlvlERGrxGXFlF9GopHfsVKN",
+    "https://www.soscisurvey.de/pkgnpp/?act=mG49nQmS2LoONENDk8nujeze",
+    "https://www.soscisurvey.de/pkgpp/?act=H590XLXbZr5hpRnapgJWherb"
 ];
 
 exports.handler = async function () {
