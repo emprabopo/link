@@ -1,5 +1,0 @@
-[build]
-  publish = "public"                  # oder wo immer deine statischen Dateien liegen
-  functions = "netlify/functions"     # exakt dieser Ordner
-
-# (optional) wenn du Edge‑Functions verwendest, käme hier noch ein Abschnitt dazu
