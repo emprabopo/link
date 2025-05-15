@@ -1,4 +1,4 @@
-// netlify/functions/redirect.js
+
 const Redis = require("ioredis");
 const redis = new Redis(process.env.UPSTASH_REDIS_REST_URL, {
   token: process.env.UPSTASH_REDIS_TOKEN
