@@ -1,7 +1,8 @@
 {
-  "name": "empraredirect",
+  "name": "redirect-app",
   "version": "1.0.0",
+  "main": "index.js",
   "dependencies": {
-    "ioredis": "^5.3.2"
+    "ioredis": "^5.0.0"
   }
 }
