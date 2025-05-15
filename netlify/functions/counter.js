@@ -1,42 +1,35 @@
-// netlify/functions/redirect.js
-const Redis = require("ioredis");
+const fs = require("fs");
+const file = "/tmp/counter.json";
 
-// Upstash-Redis via REST
-const redis = new Redis(process.env.UPSTASH_REDIS_REST_URL, {
-  token: process.env.UPSTASH_REDIS_TOKEN
-});
-
-// Deine Round‑Robin‑Links
+// Die Umleitungsliste
 const links = [
-  "https://www.soscisurvey.de/egp/",
-  "https://www.soscisurvey.de/kgnpp/",
-  "https://www.soscisurvey.de/kgpp/",
-  "https://www.soscisurvey.de/pegp/",
-  "https://www.soscisurvey.de/pkgnpp/",
-  "https://www.soscisurvey.de/pkgpp/"
+    "https://www.soscisurvey.de/egp/",
+    "https://www.soscisurvey.de/kgnpp/",
+    "https://www.soscisurvey.de/kgpp/",
+    "https://www.soscisurvey.de/pegp/",
+    "https://www.soscisurvey.de/pkgnpp/",
+    "https://www.soscisurvey.de/pkgpp/"
 ];
 
-exports.handler = async () => {
-  try {
-    // Atomisch inkrementieren: INCR erstellt bei erstem Aufruf den Key mit 1
-    const count = await redis.incr("globalRedirectCounter");
-    
-    // Weil count jetzt 1,2,3..., rechnen wir zero-based:
-    const prevCount = count - 1;
+exports.handler = async function () {
+    let count = 0;
 
-    // Round‑Robin auswählen
-    const nextLink = links[prevCount % links.length];
+    // Versuche, den aktuellen Zählerstand zu laden
+    if (fs.existsSync(file)) {
+        count = JSON.parse(fs.readFileSync(file, "utf8")).count || 0;
+    }
+
+    // Bestimme den nächsten Link
+    const nextLink = links[count % links.length];
+
+    // Erhöhe den Zähler und speichere ihn
+    fs.writeFileSync(file, JSON.stringify({ count: count + 1 }));
 
     return {
-      statusCode: 302,
-      headers: { Location: nextLink },
-      body: "Redirecting…"
+        statusCode: 302,
+        headers: {
+            Location: nextLink
+        },
+        body: "Redirecting..."
     };
-  } catch (err) {
-    console.error("Redirect Error", err);
-    return {
-      statusCode: 500,
-      body: "Server error"
-    };
-  }
 };
