@@ -1,6 +1,3 @@
 [build]
-  publish = "."                    # Root-Ordner, da keine statischen Seiten
-  functions = "netlify/functions" # Ordner mit deinen Functions
-
-[functions]
-  node_bundler = "esbuild"         # Damit Netlify die Functions richtig bündelt
+  publish = "public"
+  functions = "netlify/functions"
